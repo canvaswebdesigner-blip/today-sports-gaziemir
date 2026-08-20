@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="googlebot" content="noindex,nofollow" />
     <meta
       name="description"
       content="Today Sports — Gaziemir'de kadınlara özel Reformer & Mommy Break, pilates ve yoga stüdyosu sunum taslağı."
     />
-    <meta name="theme-color" content="#f7f1e6" />
+    <meta name="theme-color" content="#f7f1e6" data-theme-color />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Today Sports — Reformer & Mommy Break" />
     <meta
@@ -17,6 +18,18 @@
       content="Kendine ayırdığın zaman. Gaziemir'de kadınlara özel pilates ve yoga stüdyosu."
     />
     <title>Today Sports — Reformer & Mommy Break | Gaziemir</title>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("today-sports-theme");
+          const theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+          document.querySelector("[data-theme-color]")?.setAttribute("content", theme === "dark" ? "#151118" : "#f7f1e6");
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,20 +57,39 @@
           <a href="#yorumlar">Yorumlar</a>
           <a href="#iletisim">İletişim</a>
           <button class="button button-accent" type="button" data-open-contact>
-            Uygun dersi konuşalım
+            İletişime geç
           </button>
         </nav>
 
-        <button
-          class="menu-button"
-          type="button"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          aria-label="Menüyü aç"
-          data-menu-button
-        >
-          <span></span><span></span>
-        </button>
+        <div class="header-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Koyu temaya geç"
+            aria-pressed="false"
+            title="Temayı değiştir"
+            data-theme-toggle
+          >
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+            </span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M19.3 15.4A8 8 0 0 1 8.6 4.7 8.1 8.1 0 1 0 19.3 15.4Z"></path></svg>
+            </span>
+            <span class="theme-thumb" aria-hidden="true"></span>
+          </button>
+
+          <button
+            class="menu-button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Menüyü aç"
+            data-menu-button
+          >
+            <span></span><span></span>
+          </button>
+        </div>
       </div>
 
       <nav class="mobile-menu" id="mobile-menu" aria-label="Mobil menü" hidden data-mobile-menu>
@@ -68,7 +100,7 @@
           <a href="#yorumlar">Yorumlar</a>
           <a href="#iletisim">İletişim</a>
           <button class="button button-accent" type="button" data-open-contact>
-            Uygun dersi konuşalım
+            İletişime geç
           </button>
         </div>
       </nav>
@@ -88,7 +120,7 @@
             </p>
             <div class="hero-actions">
               <button class="button button-accent button-large" type="button" data-open-contact>
-                Uygun dersi konuşalım
+                İlk dersi sor
               </button>
               <a class="button button-quiet button-large" href="#dersler">
                 Dersleri keşfet <span aria-hidden="true">↘</span>
@@ -252,27 +284,27 @@
           </div>
           <div class="audience-grid">
             <article class="audience-card audience-feature reveal">
-              <span class="line-icon" aria-hidden="true">◯</span>
+              <span class="line-icon" aria-hidden="true">01</span>
               <h3>Anneler</h3>
               <p>Kendine zaman ayırmak isteyen ve çocuğuyla gelmeyi planlayan anneler.</p>
             </article>
             <article class="audience-card reveal">
-              <span class="line-icon" aria-hidden="true">✦</span>
+              <span class="line-icon" aria-hidden="true">02</span>
               <h3>İlk kez başlayanlar</h3>
               <p>Başlamadan önce ders seçeneklerini ve süreci konuşmak isteyenler.</p>
             </article>
             <article class="audience-card reveal">
-              <span class="line-icon" aria-hidden="true">◷</span>
+              <span class="line-icon" aria-hidden="true">03</span>
               <h3>Yoğun çalışanlar</h3>
               <p>Değişken programı için güncel randevu seçeneklerini konuşmak isteyenler.</p>
             </article>
             <article class="audience-card reveal">
-              <span class="line-icon" aria-hidden="true">∞</span>
+              <span class="line-icon" aria-hidden="true">04</span>
               <h3>Arkadaşıyla gelmek isteyenler</h3>
               <p>Harekete tanıdık biriyle başlamak isteyenler.</p>
             </article>
             <article class="audience-card reveal">
-              <span class="line-icon" aria-hidden="true">M</span>
+              <span class="line-icon" aria-hidden="true">05</span>
               <h3>MultiSport kullanıcıları</h3>
               <p>Kartın güncel ders kapsamını randevu öncesinde teyit etmek isteyenler.</p>
             </article>
@@ -321,7 +353,7 @@
           <div class="section-heading compact reveal">
             <div>
               <p class="section-kicker">Nasıl başlarım?</p>
-              <h2>Üç adım, tek konuşma.</h2>
+              <h2>Başlamak için ne yapmalıyım?</h2>
             </div>
           </div>
           <ol class="start-grid">
@@ -330,7 +362,7 @@
             <li class="reveal"><span>03</span><h3>Randevunu oluştur</h3><p>Güncel müsaitliğe göre uygun ders saatini işletmeyle belirle.</p></li>
           </ol>
           <button class="button button-accent button-large reveal" type="button" data-open-contact>
-            Uygun dersi konuşalım
+            Randevu için ulaş
           </button>
         </div>
       </section>
@@ -443,7 +475,7 @@
       <div class="dialog-inner">
         <button class="dialog-close" type="button" aria-label="İletişim penceresini kapat" data-close-contact>×</button>
         <p class="section-kicker">İletişim</p>
-        <h2 id="dialog-title">Uygun dersi konuşalım.</h2>
+        <h2 id="dialog-title">Nasıl yardımcı olalım?</h2>
         <p>İhtiyacını ve saatini işletmeyle doğrudan görüş.</p>
         <div class="dialog-actions">
           <a class="dialog-link dialog-primary" href="tel:+905546051765"><strong>Telefonla ara</strong><span>0554 605 17 65</span></a>

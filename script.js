@@ -2,6 +2,53 @@ const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector("[data-menu-button]");
 const mobileMenu = document.querySelector("[data-mobile-menu]");
 const contactDialog = document.querySelector("[data-contact-dialog]");
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeColor = document.querySelector("[data-theme-color]");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+const getSavedTheme = () => {
+  try {
+    return localStorage.getItem("today-sports-theme");
+  } catch {
+    return null;
+  }
+};
+
+const applyTheme = (theme, animate = false) => {
+  const isDark = theme === "dark";
+
+  if (animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("theme-transition");
+    window.setTimeout(() => document.documentElement.classList.remove("theme-transition"), 460);
+  }
+
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  themeToggle?.setAttribute("aria-pressed", String(isDark));
+  themeToggle?.setAttribute("aria-label", isDark ? "Açık temaya geç" : "Koyu temaya geç");
+  themeColor?.setAttribute("content", isDark ? "#151118" : "#f7f1e6");
+};
+
+applyTheme(document.documentElement.dataset.theme || (systemTheme.matches ? "dark" : "light"));
+
+themeToggle?.addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(nextTheme, true);
+  try {
+    localStorage.setItem("today-sports-theme", nextTheme);
+  } catch {
+    // Tema yine bu oturumda çalışır; yalnızca kalıcı tercih saklanamaz.
+  }
+});
+
+const syncWithSystemTheme = (event) => {
+  if (!getSavedTheme()) applyTheme(event.matches ? "dark" : "light", true);
+};
+
+if (systemTheme.addEventListener) {
+  systemTheme.addEventListener("change", syncWithSystemTheme);
+} else {
+  systemTheme.addListener?.(syncWithSystemTheme);
+}
 
 const updateHeader = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 18);
